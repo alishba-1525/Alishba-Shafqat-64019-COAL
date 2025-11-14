@@ -1,0 +1,54 @@
+.model small
+.stack 100h
+.data
+.code
+main proc
+
+    mov bx, 1     ; BX = number of digits to start with
+    
+    mov cx, 5     ; CX = number of lines/rows 
+    mov dl, '1' 
+
+L1:
+    push cx        ; Save outer loop counter 
+    
+    mov cx, bx     ; Inner loop counter = BX 
+   
+    mov dl, '1'    ; Character to print
+                                                                                       
+L2:
+    
+   
+    mov ah, 2
+    
+    int 21h        ; Print character 
+    
+        inc dl
+    
+    loop L2        ; Repeat inner loop
+
+                    ; Print new line (CR + LF)
+    mov dl, 10
+   
+    mov ah, 2 
+     
+    
+    int 21h
+   
+    mov dl, 13 
+    
+    mov ah, 2  
+    
+    int 21h
+
+    inc bx         ; Decrease number of stars for next line  
+    
+    pop cx         ; Restore outer loop counter 
+    
+    loop L1        ; Repeat outer loop
+
+    mov ah, 4Ch
+    int 21h
+
+main endp
+end main
